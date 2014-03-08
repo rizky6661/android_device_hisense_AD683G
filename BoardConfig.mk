@@ -24,6 +24,17 @@ BOARD_FLASH_BLOCK_SIZE := 131072
 
 TARGET_PREBUILT_KERNEL := device/hisense/AD683G/kernel
 
-#BOARD_HAS_NO_SELECT_BUTTON := true
+# vold
+BOARD_VOLD_MAX_PARTITIONS := 21
+
+# UMS
+TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/msm_hsusb/gadget/lun%d/file
+
+# recovery
+BOARD_HAS_NO_SELECT_BUTTON := true
+TARGET_RECOVERY_INITRC := device/hisense/AD683G/recovery/init.rc
+TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
+BOARD_CUSTOM_GRAPHICS := ../../../device/hisense/AD683G/recovery/graphics.c
+
 # Use this flag if the board has a ext4 partition larger than 2gb
 #BOARD_HAS_LARGE_FILESYSTEM := true
