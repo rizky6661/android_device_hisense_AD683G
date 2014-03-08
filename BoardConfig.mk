@@ -36,5 +36,12 @@ TARGET_RECOVERY_INITRC := device/hisense/AD683G/recovery/init.rc
 TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
 BOARD_CUSTOM_GRAPHICS := ../../../device/hisense/AD683G/recovery/graphics.c
 
-# Use this flag if the board has a ext4 partition larger than 2gb
-#BOARD_HAS_LARGE_FILESYSTEM := true
+# TWRP
+DEVICE_RESOLUTION := 480x800
+TW_INTERNAL_STORAGE_PATH := "/emmc"
+TW_INTERNAL_STORAGE_MOUNT_POINT := "/sdcard"
+TW_EXTERNAL_STORAGE_PATH := "/sdcard"
+TW_EXTERNAL_STORAGE_MOUNT_POINT := "/external_sd"
+TW_DEFAULT_EXTERNAL_STORAGE := true
+TW_NEVER_UNMOUNT_SYSTEM := true 
+TW_DEFAULT_EXTERNAL_STORAGE := true
