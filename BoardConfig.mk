@@ -42,6 +42,9 @@ BOARD_CHARGER_RES := device/hisense/AD683G/ramdisk/res/images/charger
 # Use our own modified init.rc
 TARGET_PROVIDES_INIT_RC := true
 
+# egl configuration for adreno200
+BOARD_EGL_CFG := device/hisense/AD683G/egl.cfg
+
 # TWRP
 DEVICE_RESOLUTION := 480x800
 TW_INTERNAL_STORAGE_PATH := "/emmc"
