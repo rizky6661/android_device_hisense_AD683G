@@ -39,6 +39,9 @@ BOARD_CUSTOM_GRAPHICS := ../../../device/hisense/AD683G/recovery/graphics.c
 # Charger
 BOARD_CHARGER_RES := device/hisense/AD683G/ramdisk/res/images/charger
 
+# Use our own modified init.rc
+TARGET_PROVIDES_INIT_RC := true
+
 # TWRP
 DEVICE_RESOLUTION := 480x800
 TW_INTERNAL_STORAGE_PATH := "/emmc"
