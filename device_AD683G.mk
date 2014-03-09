@@ -17,9 +17,14 @@ endif
 PRODUCT_COPY_FILES += \
     $(LOCAL_KERNEL):kernel
 
+# Recovery
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/recovery/rmt_storage:recovery/root/sbin/rmt_storage \
     $(LOCAL_PATH)/recovery/init.rc:recovery/root/init.rc
+
+# Ramdisk
+PRODUCT_COPY_FILES += \
+    $(call find-copy-subdir-files,*,device/hisense/AD683G/ramdisk,root)
 
 $(call inherit-product, build/target/product/full.mk)
 

@@ -36,6 +36,9 @@ TARGET_RECOVERY_INITRC := device/hisense/AD683G/recovery/init.rc
 TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
 BOARD_CUSTOM_GRAPHICS := ../../../device/hisense/AD683G/recovery/graphics.c
 
+# Charger
+BOARD_CHARGER_RES := device/hisense/AD683G/ramdisk/res/images/charger
+
 # TWRP
 DEVICE_RESOLUTION := 480x800
 TW_INTERNAL_STORAGE_PATH := "/emmc"
