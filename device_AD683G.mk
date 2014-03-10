@@ -85,6 +85,11 @@ PRODUCT_PACKAGES += \
     libOmxQcelp \
     mm-aenc-omxqcelp13-test
 
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.vendor.extension_library=/system/lib/libqc-opt.so \
+    persist.adb.notify=0 \
+    wifi.supplicant_scan_interval=30
+
 $(call inherit-product, build/target/product/full.mk)
 
 PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0
