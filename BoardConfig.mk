@@ -3,6 +3,8 @@ USE_CAMERA_STUB := true
 # inherit from the proprietary version
 -include vendor/hisense/AD683G/BoardConfigVendor.mk
 
+TARGET_SPECIFIC_HEADER_PATH := device/hisense/AD683G/include
+
 TARGET_NO_BOOTLOADER := true
 TARGET_BOARD_PLATFORM := msm7627a
 TARGET_CPU_ABI  := armeabi-v7a
