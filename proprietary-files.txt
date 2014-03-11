@@ -28,7 +28,6 @@ bin/amploader
 bin/qmuxd
 bin/qmiproxy
 lib/libqmiservices.so
-lib/libidl.so
 lib/libqmi_client_qmux.so
 bin/port-bridge
 lib/libCommandSvc.so
@@ -101,7 +100,8 @@ lib/modules/scsi_wait_scan.ko
 lib/modules/ath6kl/ath6kl_sdio.ko
 lib/modules/ath6kl/cfg80211.ko
 
-# Qcom's ril lib
+# Qcom's ril
+bin/rild
 lib/libril-qc-1.so
 lib/libril-qc-qmi-1.so
 lib/libril-qcril-hook-oem.so
@@ -142,6 +142,7 @@ bin/ccid_daemon
 lib/libqcci_legacy.so
 
 # other binary files
+bin/v4l2-qcamera-app
 bin/diag_atc
 bin/diag_dci_client
 bin/diag_klog
@@ -168,6 +169,7 @@ lib/libadc.so
 lib/libaudioalsa.so
 lib/libauth.so
 lib/libcameraservice.so
+lib/libcamera_client.so
 lib/libchromatix_ov5647_sunny_p5v02s_default_video.so
 lib/libchromatix_ov5647_sunny_p5v02s_preview.so
 lib/libchromatix_ov5647_sunny_p5v02s_video_hfr.so
@@ -189,6 +191,7 @@ lib/libmmcamera_hdr_lib.so
 lib/libmmcamera_image_stab.so
 lib/libmmcamera_statsproc31.so
 lib/libmmcamera_wavelet_lib.so
+lib/libmmcamera_interface2.so
 lib/libmmgsdilib.so
 lib/libmmipl.so
 lib/libmmjpeg.so
@@ -209,3 +212,4 @@ lib/libwmsts.so
 lib/pp_proc_plugin.so
 lib/qnet-plugin.so
 lib/tcp-connections.so
+lib/libaudioeq.so

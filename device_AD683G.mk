@@ -85,6 +85,11 @@ PRODUCT_PACKAGES += \
     libOmxQcelp \
     mm-aenc-omxqcelp13-test
 
+# misc
+PRODUCT_PACKAGES += \
+    dexpreopt \
+    com.android.future.usb.accessory
+
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.vendor.extension_library=/system/lib/libqc-opt.so \
     persist.adb.notify=0 \
