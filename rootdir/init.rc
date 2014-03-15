@@ -23,7 +23,7 @@ loglevel 3
     export EXTERNAL_STORAGE /mnt/sdcard
     export ASEC_MOUNTPOINT /mnt/asec
     export LOOP_MOUNTPOINT /mnt/obb
-    export BOOTCLASSPATH /system/framework/core.jar:/system/framework/core-junit.jar:/system/framework/bouncycastle.jar:/system/framework/ext.jar:/system/framework/framework.jar:/system/framework/android.policy.jar:/system/framework/services.jar:/system/framework/apache-xml.jar:/system/framework/filterfw.jar:/system/framework/qcrilhook.jar
+    export BOOTCLASSPATH /system/framework/core.jar:/system/framework/core-junit.jar:/system/framework/bouncycastle.jar:/system/framework/ext.jar:/system/framework/framework.jar:/system/framework/android.policy.jar:/system/framework/services.jar:/system/framework/apache-xml.jar:/system/framework/filterfw.jar
 
 # Backward compatibility
     symlink /system/etc /etc
@@ -48,7 +48,6 @@ chmod 664 /sys/class/android_usb/android0/f_diag/clients
 chmod 664 /sys/class/android_usb/android0/f_serial/transports
 chmod 664 /sys/class/android_usb/android0/functions
 chmod 664 /sys/class/android_usb/android0/enable
-
 # Right now vendor lives on the same filesystem as system,
 # but someday that may change.
     symlink /system/vendor /vendor
@@ -72,7 +71,7 @@ chmod 664 /sys/class/android_usb/android0/enable
 
     mkdir /system
     mkdir /data 0771 system system
-    mkdir /cache 0770 system cache
+    mkdir /cache 0771 system cache
     mkdir /config 0500 root root
 
     # Directory for putting things only root should see.
@@ -154,7 +153,7 @@ on post-fs
 
     # We chown/chmod /cache again so because mount is run as root + defaults
     chown system cache /cache
-    chmod 0770 /cache
+    chmod 0771 /cache
 
     # This may have been created by the recovery system with odd permissions
     chown system cache /cache/recovery
@@ -183,6 +182,8 @@ on post-fs-data
     # storing dumps on platforms which do not have a dedicated dump partition.
     mkdir /data/dontpanic 0750 root log
 
+    #liuyueqing add for CTS
+    mkdir /data/widevine 0777 system system 
     # Collect apanic data, free resources and re-arm trigger
     copy /proc/apanic_console /data/dontpanic/apanic_console
     chown root log /data/dontpanic/apanic_console
@@ -214,8 +215,10 @@ on post-fs-data
     mkdir /data/radio 0770 radio radio
     chmod 2770 /data/radio
 
-    # create dalvik-cache, so as to enforce our permissions
+    # create dalvik-cache and double-check the perms, so as to enforce our permissions
     mkdir /data/dalvik-cache 0771 system system
+    chown system system /data/dalvik-cache
+    chmod 0771 /data/dalvik-cache
 
     # create resource-cache and double-check the perms
     mkdir /data/resource-cache 0771 system system
@@ -239,6 +242,9 @@ on post-fs-data
     chmod 0660 /sys/class/android_usb/android0/f_mass_storage/lun/file
     chown system system /sys/class/android_usb/android0/f_rndis/ethaddr
     chmod 0660 /sys/class/android_usb/android0/f_rndis/ethaddr
+
+# Include extra init file
+    import /init.cm.rc
 
 on boot
 # basic network init
@@ -306,15 +312,21 @@ on boot
     chown system system /sys/kernel/ipv4/tcp_rmem_max
     chown root radio /proc/cmdline
 
+    # allow system to modify cpufreq control files
+    chown root system /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+    chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+    chown root system /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
+    chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
+    chown root system /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
+    chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
+
 # Define TCP buffer sizes for various networks
 #   ReadMin, ReadInitial, ReadMax, WriteMin, WriteInitial, WriteMax,
     setprop net.tcp.buffersize.default 4096,87380,110208,4096,16384,110208
-    setprop net.tcp.buffersize.wifi    4096,221184,3461120,4096,221184,3461120
-    setprop net.tcp.buffersize.lte     4094,87380,1220608,4096,16384,1220608
+    setprop net.tcp.buffersize.wifi    524288,1048576,2097152,262144,524288,1048576
+    setprop net.tcp.buffersize.lte     524288,1048576,2097152,262144,524288,1048576
     setprop net.tcp.buffersize.umts    4094,87380,110208,4096,16384,110208
-    setprop net.tcp.buffersize.hspa    4094,87380,1220608,4096,16384,1220608
-    setprop net.tcp.buffersize.hsupa   4094,87380,1220608,4096,16384,1220608
-    setprop net.tcp.buffersize.hsdpa   4094,87380,1220608,4096,16384,1220608
+    setprop net.tcp.buffersize.hspa    4094,87380,262144,4096,16384,262144
     setprop net.tcp.buffersize.edge    4093,26280,35040,4096,16384,35040
     setprop net.tcp.buffersize.gprs    4092,8760,11680,4096,8760,11680
     setprop net.tcp.buffersize.evdo_b  4094,87380,262144,4096,16384,262144
@@ -327,6 +339,9 @@ on boot
 # Set this property so surfaceflinger is not started by system_init
     setprop system_init.startsurfaceflinger 0
 
+# Run sysinit
+    exec /system/bin/sysinit
+
     class_start core
     class_start main
     
@@ -335,6 +350,7 @@ on boot
     chmod 666 /dev/apds9900_dev
 # change accelerometer device permission
     chmod 666 /dev/adxl346_dev
+	mkdir /data/sensoradjust 0777 system system
 # change ecompass device permission
     chmod 666 /dev/mag_sensor_dev
     chmod 666 /dev/ecompass_ctrl
@@ -379,12 +395,12 @@ on property:sys.usb.config=none
 # and as a fallback if the USB manager fails to set a standard configuration
 on property:sys.usb.config=adb
     write /sys/class/android_usb/android0/enable 0
-    write /sys/class/android_usb/android0/idVendor 05C6
-    write /sys/class/android_usb/android0/idProduct 901D
-    write /sys/class/android_usb/android0/f_diag/clients diag
-    write /sys/class/android_usb/android0/functions diag,adb
+    write /sys/class/android_usb/android0/idVendor 18d1
+    write /sys/class/android_usb/android0/idProduct D002
+    write /sys/class/android_usb/android0/functions $sys.usb.config
     write /sys/class/android_usb/android0/enable 1
     start adbd
+    start port-bridge-pcui
     setprop sys.usb.state $sys.usb.config
 
 # USB accessory configuration
@@ -423,6 +439,9 @@ service console /system/bin/sh
     disabled
     user shell
     group log
+
+on property:ro.debuggable=1
+    start console
 
 # adbd is controlled via property triggers in init.<platform>.usb.rc
 service adbd /sbin/adbd
@@ -475,9 +494,128 @@ service ril-daemon /system/bin/rild
     user root
     group radio cache inet misc audio sdcard_rw qcom_oncrpc diag
 
-# add the factory here    sangshengjie 20120726
-service  ftuk  /system/bin/fastTestUsingKernel
+service surfaceflinger /system/bin/surfaceflinger
     class main
+    user system
+    group graphics
+    onrestart restart zygote
+
+service zygote /system/bin/app_process -Xzygote /system/bin --zygote --start-system-server
+    class main
+    socket zygote stream 660 root system
+    onrestart write /sys/android_power/request_state wake
+    onrestart write /sys/power/state on
+    onrestart restart media
+    onrestart restart netd
+
+service drm /system/bin/drmserver
+    class main
+    user drm
+    group system inet drmrpc
+
+service media /system/bin/mediaserver
+    class main
+    user media
+    group audio camera inet net_bt net_bt_admin net_bw_acct drmrpc
+    ioprio rt 4
+
+service bootanim /system/bin/bootanimation
+    class main
+    user graphics
+    group graphics
+    disabled
     oneshot
+
+service dbus /system/bin/dbus-daemon --system --nofork
+    class main
+    socket dbus stream 660 bluetooth bluetooth
+    user bluetooth
+    group bluetooth net_bt_admin
+
+service bluetoothd /system/bin/bluetoothd -n
+    class main
+    socket bluetooth stream 660 bluetooth bluetooth
+    socket dbus_bluetooth stream 660 bluetooth bluetooth
+    # init.rc does not yet support applying capabilities, so run as root and
+    # let bluetoothd drop uid to bluetooth with the right linux capabilities
+    group bluetooth net_bt_admin misc
+    disabled
+
+service installd /system/bin/installd
+    class main
+    socket installd stream 600 system system
+
+service racoon /system/bin/racoon
+    class main
+    socket racoon stream 600 system system
+    # IKE uses UDP port 500. Racoon will setuid to vpn after binding the port.
+    group vpn net_admin inet
+    disabled
+    oneshot
+
+service mtpd /system/bin/mtpd
+    class main
+    socket mtpd stream 600 system system
+    user vpn
+    group vpn net_admin inet net_raw
+    disabled
+    oneshot
+
+service keystore /system/bin/keystore /data/misc/keystore
+    class main
+    user keystore
+    group keystore
+    socket keystore stream 666
+
+service dumpstate /system/bin/dumpstate -s
+    class main
+    socket dumpstate stream 0660 shell log
+    disabled
+    oneshot
+service charger /charger
+    disabled
+    oneshot
+
+# add weiliying 2011.05.28
+service utpd /system/bin/utpd
+    #socket utpd stream 600 radio system
+    user root system radio
+    group root net_admin net_raw radio
+    disabled
+    oneshot    
+    
+# added by SongTao for MEMSIC Compass
+service memsicd /system/bin/memsicd
+    class main
+    user memsicd
+    group memsicd
+    oneshot
+    
+# xuguoqing modify, sdlog
+on property:persist.sys.sdlog=1
+    start hsUsbSetamsg
+    start hsUsbSetrmsg
+#    start hsUsbSetkmsg
+
+#cat kmsg to sdcard
+service hsUsbSetkmsg /system/bin/sh /etc/callkmsg.sh
     user root
     group root
+    disabled
+    oneshot
+#end cat kmsg to sdcard
+
+#cat amsg to sdcard
+service hsUsbSetamsg /system/bin/sh /etc/callamsg.sh
+    user root
+    group root
+    disabled
+#end cat amsg to sdcard
+
+#cat rmsg to sdcard
+service hsUsbSetrmsg /system/bin/sh /etc/callrmsg.sh
+    user root
+    group root
+    disabled
+#end cat rmsg to sdcard
+#xuguoqing modify end

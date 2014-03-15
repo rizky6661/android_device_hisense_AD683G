@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011 The Android Open Source Project
+# Copyright (C) 2014 The CyanogenMod Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,6 +13,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-add_lunch_combo full_AD683G-eng
-add_lunch_combo full_AD683G-userdebug
-add_lunch_combo full_AD683G-user
+
+# Inherit from those products. Most specific first.
+$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
+$(call inherit-product, device/hisense/AD683G/device_AD683G.mk)
+
+# Discard inherited values and use our own instead.
+PRODUCT_DEVICE := AD683G
+PRODUCT_NAME := full_AD683G
+PRODUCT_BRAND := hisense
+PRODUCT_MODEL := Smarfren AD683G
+PRODUCT_MANUFACTURER := hisense
+
+

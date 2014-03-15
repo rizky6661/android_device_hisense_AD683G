@@ -185,3 +185,5 @@
 /dev/dvb/adapter0/dvr*    0664   media       media
 /dev/dvb/adapter0/video*  0664   media       media
 
+# wifi
+/dev/rfkill               0660   root        wifi
