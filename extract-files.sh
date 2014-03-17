@@ -1,14 +1,24 @@
 #!/bin/sh
 
-BASE=../../../vendor/hisense/AD683G/proprietary
-rm -rf $BASE/*
+VENDOR=hisense
+DEVICE=AD683G
+COMMON=msm7x27a-common	
 
-for FILE in `cat proprietary-files.txt | grep -v ^# | grep -v ^$ `; do
+BASE=../../../vendor/$VENDOR/$DEVICE/proprietary
+
+mkdir -p ../../../vendor/$VENDOR/$DEVICE
+
+# Get common files
+(cd ../$COMMON && ./extract-files.sh)
+
+echo "Pulling device files..."
+    adb root
+for FILE in `cat proprietary-files.txt | grep -v ^# | grep -v ^$`; do
     DIR=`dirname $FILE`
     if [ ! -d $BASE/$DIR ]; then
         mkdir -p $BASE/$DIR
     fi
-    adb pull /system/$FILE $BASE/$FILE
+    adb pull $FILE $BASE/$FILE
 done
 
 ./setup-makefiles.sh
