@@ -7,4 +7,5 @@
 /misc		emmc		/dev/block/mmcblk0p17 						flags=backup=0
 /external_sd	vfat		/dev/block/mmcblk1p1			/dev/block/mmcblk1 	flags=display="External Sdcard";storage;wipeingui;removable
 /system		ext4		/dev/block/mmcblk0p12
+/sd-ext		ext4        	/dev/block/mmcblk1p2
 /sdcard		vfat		/dev/block/mmcblk0p18 						flags=display="Internal Sdcard";storage;wipeingui

@@ -36,7 +36,7 @@ PRODUCT_COPY_FILES += \
 
 # Keeping compatibility with other custom cwm-based recoveries
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/twrp.fstab:recovery/root/etc/twrp.fsab
+    $(LOCAL_PATH)/twrp.fstab:recovery/root/etc/twrp.fstab
 
 # Ramdisk
 PRODUCT_COPY_FILES += \
