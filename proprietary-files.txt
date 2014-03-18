@@ -1,215 +1,52 @@
 # Proprietary files for Hisense AD683G
 # To find out what .so files are needed run this command on terminal
 # strings [binaryfilename] | grep lib | grep .so
+/init
+/charger
+/system/lib/hw/sensors.default.so
+/system/lib/libril.so
 
-#lib/hw
-lib/hw/camera.msm7627a.so
-lib/hw/sensors.default.so
+/system/bin/mm-qcamera-app
+/system/bin/mm-qcamera-test
+/system/bin/v4l2-qcamera-app
+/system/bin/mm-qcamera-daemon
+/system/bin/mm-qcamera-testsuite-client
+/system/lib/liboemcamera.so
+/system/lib/libcamera_client.so
+/system/lib/libcameraservice.so
+/system/lib/libmmipl.so
+/system/lib/libmmjpeg.so
+/system/lib/libmmstillomx.so
+/system/lib/libimage-jpeg-enc-omx-comp.so
+/system/lib/libimage-omx-common.so
+/system/lib/libmmcamera_interface2.so
+/system/lib/libmmparser.so
+/system/lib/libmmosal.so
+/system/lib/libDivxDrm.so
+/system/lib/libgemini.so
 
-# Files needed by init.rc
-bin/memsicd
+/system/lib/libgsl.so
+/system/lib/libgstk_exp.so
+/system/lib/libreference-ril.so
+/system/lib/libril.so
+/system/lib/modules/ansi_cprng.ko
+/system/lib/modules/cfg80211.ko
+/system/lib/modules/dal_remotetest.ko
+/system/lib/modules/evbug.ko
+/system/lib/modules/gspca_main.ko
+/system/lib/modules/lcd.ko
+/system/lib/modules/librasdioif.ko
+/system/lib/modules/mmc_test.ko
+/system/lib/modules/scsi_wait_scan.ko
+/system/lib/modules/ath6kl/ath6kl_sdio.ko
+/system/lib/modules/ath6kl/cfg80211.ko
 
-# Files needed by init.cal.rc
-bin/fastTestUsingKernel
+/system/etc/firmware/ath6k/AR6003/hw2.1.1/athtcmd_ram.bin
+/system/etc/firmware/ath6k/AR6003/hw2.1.1/athwlan.bin
+/system/etc/firmware/ath6k/AR6003/hw2.1.1/bdata.bin
+/system/etc/firmware/ath6k/AR6003/hw2.1.1/fw-3.bin
+/system/etc/firmware/ath6k/AR6003/hw2.1.1/nullTestFlow.bin
+/system/etc/firmware/ath6k/AR6003/hw2.1.1/softmac
+/system/etc/firmware/ath6k/AR6003/hw2.1.1/utf.bin
 
-# Files needed by init.target.rc
-bin/gpu_dcvsd
-lib/libgsl.so
-bin/mpdecision
-bin/thermald
-bin/mm-qcamera-daemon
-lib/liboemcamera.so
-
-# Files needed by init.qcom.rc
-bin/ds_fmc_appd
-lib/libdsutils.so
-bin/ATFWD-daemon
-bin/amploader
-bin/qmuxd
-bin/qmiproxy
-lib/libqmiservices.so
-lib/libqmi_client_qmux.so
-bin/port-bridge
-lib/libCommandSvc.so
-bin/bridgemgrd
-bin/sapd
-lib/libidl.so
-lib/liballjoyn.so
-bin/rmt_storage
-bin/cnd
-lib/libcneutils.so
-lib/libcneqmiutils.so
-lib/libdiag.so
-lib/libqmi.so
-lib/libxml.so
-lib/libcnefeatureconfig.so
-bin/usbhub_init
-
-# Files needed by init.qcom.bt.sh
-bin/hci_qcomm_init
-lib/libnv.so
-lib/liboncrpc.so
-
-# Files needed by init.qcom.coex.sh
-bin/abtfilt
-lib/libnl_2.so
-
-# Files needed by init.qcom.fm.sh
-bin/fm_qsoc_patches
-
-# Files needed by test_bluetooth.sh
-bin/ftmdaemon
-
-# Files needed by wifitest_recv.sh
-bin/athtestcmd
-
-# Adreno firmware files and libs
-etc/firmware/yamato_pfp.fw
-etc/firmware/yamato_pm4.fw
-lib/libsc-a2xx.so
-
-# Atheros firmware files
-etc/firmware/ath6k/AR6003/hw2.1.1/athtcmd_ram.bin
-etc/firmware/ath6k/AR6003/hw2.1.1/athwlan.bin
-etc/firmware/ath6k/AR6003/hw2.1.1/bdata.bin
-etc/firmware/ath6k/AR6003/hw2.1.1/fw-3.bin
-etc/firmware/ath6k/AR6003/hw2.1.1/nullTestFlow.bin
-etc/firmware/ath6k/AR6003/hw2.1.1/softmac
-etc/firmware/ath6k/AR6003/hw2.1.1/utf.bin
-
-# egl libs
-lib/egl/eglsubAndroid.so
-lib/egl/libEGL_adreno200.so
-lib/egl/libGLES_android.so
-lib/egl/libGLESv1_CM_adreno200.so
-lib/egl/libGLESv2_adreno200.so
-lib/egl/libq3dtools_adreno200.so
-
-# Kernel modules since we're using prebuilt kernel
-lib/modules/ansi_cprng.ko
-lib/modules/cfg80211.ko
-lib/modules/dal_remotetest.ko
-lib/modules/evbug.ko
-lib/modules/gspca_main.ko
-lib/modules/lcd.ko
-lib/modules/librasdioif.ko
-lib/modules/mmc_test.ko
-lib/modules/scsi_wait_scan.ko
-
-# Atheros modules
-lib/modules/ath6kl/ath6kl_sdio.ko
-lib/modules/ath6kl/cfg80211.ko
-
-# Qcom's ril
-bin/rild
-lib/libril-qc-1.so
-lib/libril-qc-qmi-1.so
-lib/libril-qcril-hook-oem.so
-
-# AR6K
-bin/artagent
-
-# omx files
-bin/ast-mm-vdec-omx-test7k
-lib/liblasic.so
-lib/libOmxAacDec.so
-lib/libOmxAacEnc.so
-lib/libOmxAdpcmDec.so
-lib/libOmxAmrDec.so
-lib/libOmxAmrRtpDec.so
-lib/libOmxAmrwbDec.so
-lib/libOmxEvrcDec.so
-lib/libOmxEvrcHwDec.so
-lib/libOmxH264Dec.so
-lib/libOmxIttiamVdec.so
-lib/libOmxMp3Dec.so
-lib/libOmxMpeg4Dec.so
-lib/libOmxOn2Dec.so
-lib/libOmxQcelp13Dec.so
-lib/libOmxQcelp13Enc.so
-lib/libOmxQcelpHwDec.so
-lib/libOmxrv9Dec.so
-lib/libOmxVidEnc.so
-lib/libOmxVp8Dec.so
-lib/libOmxWmaDec.so
-lib/libOmxWmvDec.so
-lib/libimage-jpeg-enc-omx-comp.so
-lib/libimage-omx-common.so
-lib/libmmstillomx.so
-
-# CCID_UIM_USB
-bin/ccid_daemon
-lib/libqcci_legacy.so
-
-# other binary files
-bin/v4l2-qcamera-app
-bin/diag_atc
-bin/diag_dci_client
-bin/diag_klog
-bin/diag_mdlog
-bin/diag_uart_log
-bin/dun-server
-bin/iw
-bin/mm-qcamera-test
-bin/mm-qcamera-testsuite-client
-bin/netmgrd
-lib/libnetmgr.so
-bin/nl_listener
-bin/n_smux
-bin/psatUtil
-bin/qrngd
-bin/qrngtest
-bin/stop_mdlog
-bin/test_gemini
-lib/libgemini.so
-bin/usbhub
-
-# other lib files
-lib/libadc.so
-lib/libaudioalsa.so
-lib/libauth.so
-lib/libcameraservice.so
-lib/libcamera_client.so
-lib/libchromatix_ov5647_sunny_p5v02s_default_video.so
-lib/libchromatix_ov5647_sunny_p5v02s_preview.so
-lib/libchromatix_ov5647_sunny_p5v02s_video_hfr.so
-lib/libchromatix_ov5647_truly_cm6868_default_video.so
-lib/libchromatix_ov5647_truly_cm6868_preview.so
-lib/libchromatix_ov5647_truly_cm6868_video_hfr.so
-lib/libcm.so
-lib/libcneapiclient.so
-lib/libDivxDrm.so
-lib/libdivxdrmdecrypt.so
-lib/libdnshostprio.so
-lib/libdsi_netctrl.so
-lib/libdsm.so
-lib/libmm-abl.so
-lib/libmm-adspsvc.so
-lib/libmmcamera_faceproc.so
-lib/libmmcamera_frameproc.so
-lib/libmmcamera_hdr_lib.so
-lib/libmmcamera_image_stab.so
-lib/libmmcamera_statsproc31.so
-lib/libmmcamera_wavelet_lib.so
-lib/libmmcamera_interface2.so
-lib/libmmgsdilib.so
-lib/libmmipl.so
-lib/libmmjpeg.so
-lib/libmmosal.so
-lib/libmmparser.so
-lib/liboem_rapi.so
-lib/libpbmlib.so
-lib/libqc-opt.so
-lib/libqdi.so
-lib/libqdp.so
-lib/libqueue.so
-lib/libreference-ril.so
-lib/libril.so
-lib/libtcpfinaggr.so
-lib/libwidevine.so
-lib/libwms.so
-lib/libwmsts.so
-lib/pp_proc_plugin.so
-lib/qnet-plugin.so
-lib/tcp-connections.so
-lib/libaudioeq.so
+/system/bin/memsicd
