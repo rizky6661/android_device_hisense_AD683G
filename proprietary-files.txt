@@ -24,6 +24,7 @@
 /system/lib/libmmosal.so
 /system/lib/libDivxDrm.so
 /system/lib/libgemini.so
+/system/lib/libmmcamera_statsproc31.so
 
 /system/lib/libgsl.so
 /system/lib/libgstk_exp.so
