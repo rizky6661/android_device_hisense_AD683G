@@ -25,6 +25,11 @@
 /system/lib/libDivxDrm.so
 /system/lib/libgemini.so
 /system/lib/libmmcamera_statsproc31.so
+/system/lib/libmmcamera_hdr_lib.so
+/system/lib/libmmcamera_faceproc.so
+/system/lib/libmmcamera_frameproc.so
+/system/lib/libmmcamera_image_stab.so
+/system/lib/libmmcamera_wavelet_lib.so
 
 /system/lib/libgsl.so
 /system/lib/libgstk_exp.so
