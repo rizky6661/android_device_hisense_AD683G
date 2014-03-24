@@ -385,20 +385,24 @@ on property:vold.decrypt=trigger_shutdown_framework
 
 # Used to disable USB when switching states
 on property:sys.usb.config=none
-    stop adbd
     write /sys/class/android_usb/android0/enable 0
+    write /sys/class/android_usb/android0/idVendor 109B
+    write /sys/class/android_usb/android0/idProduct 911F
     write /sys/class/android_usb/android0/bDeviceClass 0
+    write /sys/class/android_usb/android0/functions adb
+    write /sys/class/android_usb/android0/enable 1
+    start adbd
     setprop sys.usb.state $sys.usb.config
 
 # adb only USB configuration
 # This should only be used during device bringup
 # and as a fallback if the USB manager fails to set a standard configuration
 on property:sys.usb.config=adb
-    write /sys/class/android_usb/android0/enable 0
-    write /sys/class/android_usb/android0/idVendor 18d1
-    write /sys/class/android_usb/android0/idProduct D002
-    write /sys/class/android_usb/android0/functions $sys.usb.config
-    write /sys/class/android_usb/android0/enable 1
+#    write /sys/class/android_usb/android0/enable 0
+#    write /sys/class/android_usb/android0/idVendor 109B
+#    write /sys/class/android_usb/android0/idProduct 911F
+#    write /sys/class/android_usb/android0/functions $sys.usb.config
+#    write /sys/class/android_usb/android0/enable 1
     start adbd
     start port-bridge-pcui
     setprop sys.usb.state $sys.usb.config

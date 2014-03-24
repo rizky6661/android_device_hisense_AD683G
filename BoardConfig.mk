@@ -63,7 +63,7 @@ BOARD_VOLD_DISC_HAS_MULTIPLE_MAJORS := true
 TARGET_PREBUILT_KERNEL := device/hisense/AD683G/kernel
 
 # recovery
-BOARD_UMS_LUNFILE := "/sys/class/android_usb/android0/f_mass_storage/lun/file"
+BOARD_UMS_LUNFILE := "/sys/devices/platform/msm_hsusb/gadget/lun%d/file"
 TARGET_RECOVERY_INITRC := device/hisense/AD683G/recovery/init.rc
 TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
 BOARD_CUSTOM_GRAPHICS := ../../../device/hisense/AD683G/recovery/graphics.c
@@ -98,8 +98,13 @@ TARGET_RELEASETOOLS_EXTENSIONS := device/hisense/msm7x27a-common
 
 # TWRP
 DEVICE_RESOLUTION := 480x800
-TW_INTERNAL_STORAGE_PATH := "/emmc"
-TW_INTERNAL_STORAGE_MOUNT_POINT := "/sdcard"
-TW_EXTERNAL_STORAGE_PATH := "/sdcard"
-TW_EXTERNAL_STORAGE_MOUNT_POINT := "/external_sd"
+TW_INTERNAL_STORAGE_PATH := "/dev/block/mmcblk0p18"
+TW_INTERNAL_STORAGE_MOUNT_POINT := "sdcard"
+TW_EXTERNAL_STORAGE_PATH := "/dev/block/mmcblk1p1"
+TW_EXTERNAL_STORAGE_MOUNT_POINT := "external_sd"
 TW_DEFAULT_EXTERNAL_STORAGE := true
+TW_BRIGHTNESS_PATH := "/sys/devices/platform/msm_fb.590593/leds/lcd-backlight/brightness"
+TW_MAX_BRIGHTNESS := 100
+TWHAVE_SELINUX := false
+TW_NO_USB_STORAGE := true
+# End TWRP
